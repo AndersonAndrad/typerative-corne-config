@@ -73,3 +73,18 @@ const unit16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TRNS, KC_TRNS, KC_TRNS,                KC_ENT, KC_TRNS, KC_TRNS
   ),
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case GAME_MODE:
+            if (record->event.pressed) {
+                // When the GAME_MODE key is pressed, toggle to the game layer
+                layer_on(_GAMING);
+            } else {
+                // When the GAME_MODE key is released, toggle back to the default layer
+                layer_off(_GAMING);
+            }
+            return false; // Don't process the key as a normal key press
+    }
+    return true; // Process the key as a normal key press
+}
